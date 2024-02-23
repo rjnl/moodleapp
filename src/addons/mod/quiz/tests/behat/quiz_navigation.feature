@@ -83,6 +83,7 @@ Feature: Navigate through a quiz in the app
     And I should find "Text of the first question" in the app
     And I should find "Text of the second question" in the app
 
+  @lms_from4.4
   Scenario: Sequential navigation
     Given I entered the quiz activity "Quiz 2" on course "Course 1" as "student1" in the app
     And I press "Attempt quiz now" in the app
@@ -132,8 +133,14 @@ Feature: Navigate through a quiz in the app
     And I should find "Not yet answered" within "2" "ion-item" in the app
     And I should find "Not yet answered" within "3" "ion-item" in the app
 
+    When I press "Not yet answered" within "3" "ion-item" in the app
+    Then I should not find "Text of the third question" in the app
+
     When I press "Submit all and finish" in the app
-    And I press "Submit" near "Once you submit" in the app
+    Then I should find "Once you submit" in the app
+    But I should not find "Questions without a response" in the app
+
+    When I press "Submit" near "Once you submit" in the app
     Then I should find "Review" in the app
     And I should find "Text of the first question" in the app
     And I should find "Text of the second question" in the app
